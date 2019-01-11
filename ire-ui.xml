@@ -10,8 +10,8 @@
 			<name>Drag and Drop GUI Framework</name>
 			<packageName></packageName>
 			<script>-- Jor'Mox's GUIframe Script
--- 10/02/2018
--- v1.3.3
+-- 1/10/2019
+-- v1.4.0
 
 GUIframe = GUIframe or {}
 
@@ -54,46 +54,7 @@ GUIframe.sides = GUIframe.sides or {left = 'enabled', right = 'enabled', top = '
 local resize_style = "border-image: url(%s%s);"
 
 local configs = table.update(GUIframe.defaults, GUIframe.configs)
-local tabsInfo = {
-    topLeftTabs = {name = 'topLeftTabs', x = 0, y = 0, width = configs.leftStartWidth,
-        height = configs.tabHeight},
-    bottomLeftTabs = {name = 'bottomLeftTabs', x = 0, y = configs.leftStartHeight,
-        width = configs.leftStartWidth, height = configs.tabHeight},
-    topRightTabs = {name = 'topRightTabs', x = mainW - configs.rightStartWidth, y = 0,
-        width = configs.rightStartWidth, height = configs.tabHeight},
-    bottomRightTabs = {name = 'bottomRightTabs', x = mainW - configs.rightStartWidth,
-        y = configs.rightStartHeight, width = configs.rightStartWidth, height = configs.tabHeight},
-}
-local containerInfo = {
-    topLeftContainer = {name = 'topLeftContainer', x = 0, y = configs.tabHeight,
-        width = configs.leftStartWidth, height = configs.leftStartHeight - configs.tabHeight},
-    bottomLeftContainer = {name = 'bottomLeftContainer', x = 0, y = configs.leftStartHeight + configs.tabHeight,
-        width = configs.leftStartWidth, height = configs.leftStartHeight - configs.tabHeight},
-    topRightContainer = {name = 'topRightContainer', x = mainW - configs.rightStartWidth,
-        y = configs.tabHeight, width = configs.rightStartWidth,
-        height = configs.rightStartHeight - configs.tabHeight},
-    bottomRightContainer = {name = 'bottomRightContainer', x = mainW - configs.rightStartWidth,
-        y = configs.rightStartHeight + configs.tabHeight, width = configs.rightStartWidth,
-        height = configs.rightStartHeight - configs.tabHeight},
-    bottomContainer = {name = 'bottomContainer', x = configs.leftStartWidth,
-        y = mainH - configs.bottomStartHeight, height = configs.bottomStartHeight,
-        width = mainW - configs.leftStartWidth - configs.rightStartWidth},
-    topContainer = {name = 'topContainer', x = configs.leftStartWidth, y = 0, height = configs.topStartHeight,
-        width = mainW - configs.leftStartWidth - configs.rightStartWidth}
-}
-local resizeInfo = {
-    resizeLeft = {name = 'resizeLeft', x = configs.leftStartWidth,
-        y = configs.leftStartHeight - configs.resizeHeight / 2, height = configs.resizeHeight,
-        width = configs.resizeWidth},
-    resizeRight = {name = 'resizeRight', x = configs.rightStartWidth - configs.resizeWidth,
-        y = configs.rightStartHeight - configs.resizeHeight / 2, height = configs.resizeHeight,
-        width = configs.resizeWidth},
-    resizeTop = {name = 'resizeTop', x = halfW - configs.resizeWidth / 2,
-        y = configs.topStartHeight, height = configs.resizeHeight, width = configs.resizeWidth},
-    resizeBottom = {name = 'resizeBottom', x = halfW - configs.resizeWidth / 2,
-        y = mainH - configs.bottomStartHeight - configs.resizeHeight, height = configs.resizeHeight,
-        width = configs.resizeWidth}
-}
+local tabsInfo, containerInfo, resizeInfo
 
 local container_names = {'topLeftContainer', 'bottomLeftContainer', 'topRightContainer',
     'bottomRightContainer', 'bottomContainer', 'topContainer'}
@@ -162,6 +123,48 @@ local function config()
     configs = table.update(GUIframe.defaults, GUIframe.configs)
     GUIframe.windows = {}
     GUIframe.tabCoords = {}
+    
+    tabsInfo = {
+        topLeftTabs = {name = 'topLeftTabs', x = 0, y = 0, width = configs.leftStartWidth,
+            height = configs.tabHeight},
+        bottomLeftTabs = {name = 'bottomLeftTabs', x = 0, y = configs.leftStartHeight,
+            width = configs.leftStartWidth, height = configs.tabHeight},
+        topRightTabs = {name = 'topRightTabs', x = mainW - configs.rightStartWidth, y = 0,
+            width = configs.rightStartWidth, height = configs.tabHeight},
+        bottomRightTabs = {name = 'bottomRightTabs', x = mainW - configs.rightStartWidth,
+            y = configs.rightStartHeight, width = configs.rightStartWidth, height = configs.tabHeight},
+    }
+    containerInfo = {
+        topLeftContainer = {name = 'topLeftContainer', x = 0, y = configs.tabHeight,
+            width = configs.leftStartWidth, height = configs.leftStartHeight - configs.tabHeight},
+        bottomLeftContainer = {name = 'bottomLeftContainer', x = 0, y = configs.leftStartHeight + configs.tabHeight,
+            width = configs.leftStartWidth, height = configs.leftStartHeight - configs.tabHeight},
+        topRightContainer = {name = 'topRightContainer', x = mainW - configs.rightStartWidth,
+            y = configs.tabHeight, width = configs.rightStartWidth,
+            height = configs.rightStartHeight - configs.tabHeight},
+        bottomRightContainer = {name = 'bottomRightContainer', x = mainW - configs.rightStartWidth,
+            y = configs.rightStartHeight + configs.tabHeight, width = configs.rightStartWidth,
+            height = configs.rightStartHeight - configs.tabHeight},
+        bottomContainer = {name = 'bottomContainer', x = configs.leftStartWidth,
+            y = mainH - configs.bottomStartHeight, height = configs.bottomStartHeight,
+            width = mainW - configs.leftStartWidth - configs.rightStartWidth},
+        topContainer = {name = 'topContainer', x = configs.leftStartWidth, y = 0, height = configs.topStartHeight,
+            width = mainW - configs.leftStartWidth - configs.rightStartWidth}
+    }
+    resizeInfo = {
+        resizeLeft = {name = 'resizeLeft', x = configs.leftStartWidth,
+            y = configs.leftStartHeight - configs.resizeHeight / 2, height = configs.resizeHeight,
+            width = configs.resizeWidth},
+        resizeRight = {name = 'resizeRight', x = configs.rightStartWidth - configs.resizeWidth,
+            y = configs.rightStartHeight - configs.resizeHeight / 2, height = configs.resizeHeight,
+            width = configs.resizeWidth},
+        resizeTop = {name = 'resizeTop', x = halfW - configs.resizeWidth / 2,
+            y = configs.topStartHeight, height = configs.resizeHeight, width = configs.resizeWidth},
+        resizeBottom = {name = 'resizeBottom', x = halfW - configs.resizeWidth / 2,
+            y = mainH - configs.bottomStartHeight - configs.resizeHeight, height = configs.resizeHeight,
+            width = configs.resizeWidth}
+    }
+    
     for name, cons in pairs(containerInfo) do
         GUIframe[name] = Geyser.Container:new(cons)
     end
@@ -183,6 +186,7 @@ local function config()
         style = "background-color: rgba(%s%s);"
         no_image = true
     end
+    
     for name, cons in pairs(resizeInfo) do
         GUIframe[name] = Geyser.Label:new(cons)
         GUIframe[name]:setColor(0,0,0,0)
@@ -211,7 +215,11 @@ local function deselectContainer(container, tabs)
     -- unhighlight all tabs in tabs container
     if tabs then
         for _, tab in pairs(tabs.windowList) do
-	        tab:echo(configs.tabEchoStyle..tab.name:gsub("Tab",""))
+            local name = tab.name:gsub("Tab","")
+            local show = GUIframe.windows[name].showText
+            if show then
+                tab:echo(configs.tabEchoStyle..name)
+            end
 	    end
 	end
 end
@@ -420,7 +428,7 @@ function GUIframe.disable(side, hide)
 end
 
 -- adds a Geyser window or container to the given container, with a tab showing the given name if applicable
-function GUIframe.addWindow(window, name, container)
+function GUIframe.addWindow(window, name, container, hideText)
     if not GUIframe.initialized then config() end
     if type(container) == "table" then container = container.name end
     local con, tabs = get_containers(container)
@@ -435,9 +443,13 @@ function GUIframe.addWindow(window, name, container)
     deselectContainer(con,tabs)
     -- add tab for window, if applicable
     if tabs then
+        local showText = not hideText
+        window.showText = showText
         local lbl = Geyser.Label:new({name = name.."Tab", x = 0, y = 0, width = 10, height = 10},tabs)
         lbl:setStyleSheet(configs.tabStyle)
-        lbl:echo(configs.tabEchoStyle.."&lt;b&gt;"..name)
+        if showText then
+            lbl:echo(configs.tabEchoStyle.."&lt;b&gt;"..name)
+        end
         lbl:setClickCallback("GUIframe.buttonClick", name)
         lbl:setReleaseCallback("GUIframe.buttonRelease", name)
         lbl:setMoveCallback("GUIframe.buttonMove", name)
@@ -491,10 +503,13 @@ function GUIframe.saveSettings()
 
     -- get added windows and containers they are assigned to
     local windows = {}
+    local text = {}
     for k,v in pairs(GUIframe.windows) do
         local con = v.container.name
         windows[con] = windows[con] or {}
         table.insert(windows[con], k)
+        text[con] = text[con] or {}
+        text[con][k] = v.showText
     end
     -- reorder windows to match tab order for tabbed containers
     for con, wins in pairs(windows) do
@@ -503,7 +518,7 @@ function GUIframe.saveSettings()
             local new = {}
             for k,v in ipairs(tabs) do
                 local wname = v:gsub("Tab","")
-                table.insert(new, wname)
+                table.insert(new, {wname, text[con][wname]})
             end
             windows[con] = new
         end
@@ -527,16 +542,21 @@ function GUIframe.loadSettings(redraw)
     resizeContainers("top", saveTbl.top.w, saveTbl.top.h)
     resizeContainers("bottom", saveTbl.bottom.w, mainH - saveTbl.bottom.h)
     for con, wins in pairs(saveTbl.windows) do
-        local tabs = {}
+--        local tabs = {}
         for _,name in ipairs(wins) do
-            table.insert(tabs, name.."Tab")
-            GUIframe.addWindow(GUIframe.windows[name], name, con)
+--            table.insert(tabs, name.."Tab")
+            if type(name) == "string" then
+                GUIframe.addWindow(GUIframe.windows[name], name, con)
+            else
+                local n, s = name[1], not name[2]
+                GUIframe.addWindow(GUIframe.windows[n], n, con, s)
+            end
         end
-        local tabCon = GUIframe[con].tabs
-        if tabCon then
-            tabCon.windows = tabs
-            adjustTabs(tabCon)
-        end
+--        local tabCon = GUIframe[con].tabs
+--        if tabCon then
+--            tabCon.windows = tabs
+--            adjustTabs(tabCon)
+--        end
     end
 
     for side, state in pairs(saveTbl.sides) do
@@ -560,6 +580,33 @@ function GUIframe.reinitialize()
     config()
 end
 
+-- can be called to activate a given tab without clicking on it
+function GUIframe.activate(name)
+    if not GUIframe.initialized then error("GUIframe not initialized",1) end
+	local window = GUIframe.windows[name]
+	if window then
+        local con, tabs = get_containers(window.container.name)
+        -- hide and unhighlight other windows and tabs
+        deselectContainer(con, tabs)
+        -- show selected window
+        window:show()
+        window.active = true
+        -- highlight selected tab
+        if window.showText then
+            GUIframe.tabs[name]:echo(configs.tabEchoStyle.."&lt;b&gt;"..name)
+        end
+    end
+end
+
+-- can be called to apply a style to a given tab
+function GUIframe.styleTab(name, style)
+    if not GUIframe.initialized then error("GUIframe not initialized",1) end
+	local tab = GUIframe.tabs[name]
+	if tab then
+	    tab:setStyleSheet(style)
+    end
+end
+
 -- internally used function to handle button click callbacks
 function GUIframe.buttonClick(name, event)
     if not GUIframe.initialized then error("GUIframe not initialized",2) end
@@ -579,7 +626,9 @@ function GUIframe.buttonClick(name, event)
         window:show()
         window.active = true
         -- highlight selected tab
-        GUIframe.tabs[name]:echo(configs.tabEchoStyle.."&lt;b&gt;"..name)
+        if window.showText then
+            GUIframe.tabs[name]:echo(configs.tabEchoStyle.."&lt;b&gt;"..name)
+        end
     elseif event.button == "RightButton" then
         local window, tab = GUIframe.windows[name], GUIframe.tabs[name]
         tab.savedX, tab.savedY = getMousePosition()
@@ -593,6 +642,7 @@ function GUIframe.buttonClick(name, event)
             end
         end
     end
+    raiseEvent("GUIframe.buttonClick",name,event)
 end
 
 -- internally used function to handle button release callbacks
@@ -622,6 +672,7 @@ function GUIframe.buttonRelease(name, event)
 	    end
 	    adjustTabs(tabs)
 	end
+	raiseEvent("GUIframe.buttonRelease",name,event)
 end
 
 -- internally used function to handle button move callbacks
@@ -700,6 +751,7 @@ function GUIframe.buttonMove(name, event)
             end
         end
 	end
+	raiseEvent("GUIframe.buttonMove",name,event)
 end
 
 -- internally used function to handle sysWindowResizeEvent
