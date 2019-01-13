@@ -776,12 +776,13 @@ GUIframe.configs =
     tabHeight = 20,
     tabStyle =
       [[
-        background-color: green;
-        border-width: 2px;
+        background-color: #001449;
+        border-width: 1px;
         border-style: outset;
-        border-color: limegreen;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-color: #B3B6B7;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        font-family: Ubuntu;
         margin-right: 1px;
         margin-left: 1px;
         qproperty-alignment: 'AlignCenter | AlignCenter';]],
